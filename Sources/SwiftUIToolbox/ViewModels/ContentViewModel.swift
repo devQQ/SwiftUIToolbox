@@ -8,8 +8,8 @@
 import SwiftUI
 
 public struct ContentViewModel<Content: View> {
-    let content: Content
-    let height: CGFloat?
+    public let content: Content
+    public let height: CGFloat?
     
     public init(content: Content, height: CGFloat? = nil) {
         self.content = content
