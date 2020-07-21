@@ -2,7 +2,7 @@
 //  Cache.swift
 //  
 //
-//  Created by Quang Trang on 7/20/20.
+//  Created by Q Trang on 7/20/20.
 //
 
 import Foundation
