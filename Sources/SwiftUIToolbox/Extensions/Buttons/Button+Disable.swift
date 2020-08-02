@@ -2,7 +2,7 @@
 //  Button+Disable.swift
 //  
 //
-//  Created by Quang Trang on 7/24/20.
+//  Created by Q Trang on 7/24/20.
 //
 
 import SwiftUI
