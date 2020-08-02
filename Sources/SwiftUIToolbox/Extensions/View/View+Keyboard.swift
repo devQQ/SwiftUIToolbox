@@ -58,7 +58,7 @@ public struct KeyboardObserverViewModifier: ViewModifier {
 }
 
 extension View {
-    func observeKeyboard(keyboardHeight: CGFloat, keyboardAnimationDuration: Double) -> some View {
+    public func observeKeyboard(keyboardHeight: CGFloat, keyboardAnimationDuration: Double) -> some View {
         return ModifiedContent(content: self, modifier: KeyboardObserverViewModifier(keyboardHeight: keyboardHeight, keyboardAnimationDuration: keyboardAnimationDuration))
     }
 }
