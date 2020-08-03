@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 extension Collection where Element: Publisher {
-    public var combineLatest: CombineLatestCollection<Self> {
-        CombineLatestCollection(self)
+    public func combineLatest(waitForAllPublishers wait: Bool = true) -> CombineLatestCollection<Self> {
+        CombineLatestCollection(self, wait: wait)
     }
 }
 
@@ -19,13 +19,15 @@ public struct CombineLatestCollection<Publishers>: Publisher where Publishers: C
     public typealias Failure = Publishers.Element.Failure
     
     private let publishers: Publishers
+    private let wait: Bool
     
-    public init(_ publishers: Publishers) {
+    public init(_ publishers: Publishers, wait: Bool = true) {
         self.publishers = publishers
+        self.wait = wait
     }
     
     public func receive<S>(subscriber: S) where S : Subscriber, Self.Failure == S.Failure, Self.Output == S.Input {
-        let subscription = Subscription(subscriber: subscriber, publishers: publishers)
+        let subscription = Subscription(subscriber: subscriber, publishers: publishers, wait: wait)
         subscriber.receive(subscription: subscription)
     }
 }
@@ -35,7 +37,7 @@ extension CombineLatestCollection {
         
         private let subscribers: [AnyCancellable]
         
-        init(subscriber: S, publishers: Publishers) {
+        init(subscriber: S, publishers: Publishers, wait: Bool = true) {
             let count = publishers.count
             var outputs: [Publishers.Element.Output?] = Array(repeating: nil, count: count)
             
@@ -70,7 +72,8 @@ extension CombineLatestCollection {
                     
                     let values = outputs.compactMap { $0 }
                     
-                    guard values.count == count else { return }
+                    guard values.count == count ||
+                        !wait else { return }
                     
                     _ = subscriber.receive(values)
                 }
