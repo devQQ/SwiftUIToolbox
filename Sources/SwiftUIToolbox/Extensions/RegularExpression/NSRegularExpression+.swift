@@ -2,7 +2,7 @@
 //  NSRegularExpression+.swift
 //  
 //
-//  Created by Quang Trang on 8/1/20.
+//  Created by Q Trang on 8/1/20.
 //
 
 import Foundation
