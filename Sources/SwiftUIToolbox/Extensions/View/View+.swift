@@ -16,6 +16,14 @@ extension View {
                     Spacer()
                 }
                 .padding()
+            )
+    }
+    
+    public func printMessage(_ message: String) -> some View {
+        self.background(GeometryReader { reader -> Color in
+            print(message)
+            return Color.clear
+        }
         )
     }
     
